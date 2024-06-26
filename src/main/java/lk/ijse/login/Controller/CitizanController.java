@@ -1,0 +1,56 @@
+package lk.ijse.login.Controller;
+
+
+import lk.ijse.login.Dto.CitizanDto;
+import lk.ijse.login.Dto.ResponseDto;
+import lk.ijse.login.service.CitizanService;
+import lk.ijse.login.utill.Varlist;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping(value = "api/v1/citizan")
+@CrossOrigin
+public class CitizanController {
+    @Autowired
+    private CitizanService citizanService;
+    @Autowired
+    private ResponseDto responseDto;
+    @PostMapping("/saveCitizan")
+    public ResponseEntity saveCitizan(@RequestBody CitizanDto citizanDto) {
+    try {
+        String res=citizanService.SaveCitizan(citizanDto);
+        if (res.equals("00")) {
+            responseDto.setCode(Varlist.RSP_SUCCESS);
+            responseDto.setMessage("SUCCESS");
+            responseDto.setContent(citizanDto);
+            return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+
+
+        } else if (res.equals("06")) {
+            responseDto.setCode(Varlist.RSP_DUPLICATED);
+            responseDto.setMessage("DUPLICATED");
+            responseDto.setContent(citizanDto);
+            return new ResponseEntity(responseDto, HttpStatus.BAD_REQUEST);
+        }else {
+
+            responseDto.setCode(Varlist.RSP_FAIL);
+            responseDto.setMessage("Fail");
+            responseDto.setContent(null);
+            return new ResponseEntity(responseDto, HttpStatus.BAD_REQUEST);
+
+
+        }
+
+        }catch (Exception ex){
+        responseDto.setCode(Varlist.RSP_ERROR);
+        responseDto.setMessage(ex.getMessage());
+        responseDto.setContent(null);
+        return new ResponseEntity(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+
+    }
+}
