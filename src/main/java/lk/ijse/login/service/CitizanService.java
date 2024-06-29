@@ -25,4 +25,8 @@ public class CitizanService {
             return Varlist.RSP_SUCCESS;
         }
     }
+    public CitizanDto getCitizanByPassword(String first_name,String password){
+        Citizan citizan=  citizanRepo.findByFirstNameAndPassword(first_name,password);
+        return modelMapper.map(citizan,CitizanDto.class);
+    }
 }

@@ -34,3 +34,24 @@ function saveCitizan(){
         }
     })
 }
+
+function checkLogin(){
+    let LoginUserName=$(`#LoginUserName`).val();
+    let LoginPassword=$(`#LoginPassword`).val();
+
+    $.ajax({
+        method:"GET",
+        contentType:"application/json",
+        url:"http://localhost:8080/api/v1/citizan/getCitizanByPassword/"+LoginUserName+"/"+LoginPassword,
+        async:true,
+
+        success:function (data){
+
+            alert("Ok")
+
+        },
+        error:function (){
+            alert("Error")
+        }
+    })
+}

@@ -53,4 +53,9 @@ public class CitizanController {
     }
 
     }
+    @GetMapping("/getCitizanByPassword/{first_name}/{password}")
+    public CitizanDto getCitizanByPassword(@PathVariable String first_name,@PathVariable String password) {
+        System.out.println(first_name + " ," + password);
+        return citizanService.getCitizanByPassword(first_name, password);
+    }
 }
