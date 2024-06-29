@@ -23,7 +23,7 @@ public class CitizanService {
         }else {
             citizanRepo.save(modelMapper.map(citizanDto, Citizan.class));
             return Varlist.RSP_SUCCESS;
-        }
+        }/*   */
     }
     public CitizanDto getCitizanByPassword(String first_name,String password){
         Citizan citizan=  citizanRepo.findByFirstNameAndPassword(first_name,password);
